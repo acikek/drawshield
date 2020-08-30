@@ -1,0 +1,25 @@
+{
+  "name": "drawshield",
+  "version": "1.2.0",
+  "description": "A simple utilization of the DrawShield.net API.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "npm",
+    "drawshield",
+    "heraldry",
+    "shield",
+    "blazon"
+  ],
+  "author": "acikek",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.20.0",
+    "svg-to-img": "^2.0.9"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
+  }
+}
