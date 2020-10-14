@@ -1,6 +1,6 @@
 {
   "name": "drawshield",
-  "version": "1.2.0",
+  "version": "2.0.0",
   "description": "A simple utilization of the DrawShield.net API.",
   "main": "index.js",
   "scripts": {
@@ -19,7 +19,7 @@
     "axios": "^0.20.0",
     "svg-to-img": "^2.0.9"
   },
-  "repository": { 
+  "repository": {
     "type": "git",
     "url": "https://github.com/acikek/drawshield"
   }
