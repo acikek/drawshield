@@ -13,13 +13,15 @@ const axios = require("axios");
  * @returns {Buffer} Image buffer
  */
 
-async function drawShield(blazon, { dir = "./blazons", filename, save }) {
+async function drawShield(blazon, options) {
+  if (!options) options = {};
+
   let svg = await axios.get(`https://drawshield.net/include/drawshield.php?size=500&blazon=${encodeURIComponent(blazon)}`);
   svg = svg.data.replace(`id="test1"`, `id="test1" visibility="hidden"`).replace(`id="release-id"`, `id="release-id" visibility="hidden"`);
   let image = await svgToImg.from(svg).toPng();
 
-  if (save != false) {
-    fs.writeFileSync(`${dir}/${filename || blazon.replace(/ /g, "-").replace(/,/g, "")}.png`, image);
+  if (options.save !== false) {
+    fs.writeFileSync(`${options.dir || "./blazons"}/${options.filename || blazon.replace(/ /g, "-").replace(/,/g, "")}.png`, image);
   }
 
   return image;
@@ -35,9 +37,11 @@ async function drawShield(blazon, { dir = "./blazons", filename, save }) {
  * @returns {Object} Data object
  */
 
-async function fetchTerm(term, { source, match }) {
-  let src = source ? `&source=${source.toLowerCase()}` :  "";
-  let m = match ? `&match=${match.toLowerCase()}` : "";
+async function fetchTerm(term, options) {
+  if (!options) options = {};
+
+  let src = options.source ? `&source=${options.source.toLowerCase()}` :  "";
+  let m = options.match ? `&match=${options.match.toLowerCase()}` : "";
 
   let result = await axios.get(`https://drawshield.net/api/define/${term}${src}${m}`);
   if (result.data.error) throw new Error(result.data.error);
@@ -47,8 +51,6 @@ async function fetchTerm(term, { source, match }) {
     URL: result.data.URL,
     trueURL: `https://drawshield.net/api/define/${term}${src}${m}`,
     term: term.toLowerCase(),
-    source: source ? source.toLowerCase() : null,
-    match: source ? match.toLowerCase() : null
   };
 }
 
